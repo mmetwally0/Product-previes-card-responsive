@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Montserrat:wght@500;700&display=swap");
+
+$colors: (
+  primary-dark: hsl(158, 36%, 37%),
+  primary-darker: darken(hsl(158, 36%, 37%), 20%),
+  primary-light: hsl(30, 38%, 92%),
+  neutral-very-dark: hsl(212, 21%, 14%),
+  neutral-dark: hsl(228, 12%, 48%),
+  neutral-white: hsl(0, 0%, 100%),
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+@mixin desktop {
+  @media (min-width: 850px) {
+    @content;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: color(primary-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card {
+  @include desktop {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "image text";
+    height: 450px;
+    width: 600px;
+  }
+
+  display: grid;
+  grid-template-rows: 0.5fr 1fr;
+  grid-template-areas:
+    ""
+    "image text";
+  background-color: color(neutral-white);
+  height: 650px;
+  width: 340px;
+  border-radius: 10px;
+
+  .image-box {
+    grid-area: "image";
+
+    .mobile-img {
+      @include desktop {
+        display: none;
+      }
+
+      width: 340px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .desktop-img {
+      @include desktop {
+        width: 300px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        display: block;
+      }
+      display: none;
+    }
+  }
+
+  .text-box {
+    @include desktop{
+
+        padding: 0.5em 1.5em 1.5em 1.5em;
+    }
+    
+    grid-area: "text";
+    padding: 0 1.5em 1.5em 1.5em;
+    font-family: Montserrat;
+
+    .type {
+      color: color(neutral-dark);
+      font-size: 0.8em;
+      letter-spacing: 5px;
+    }
+
+    .name {
+      font-family: Fraunces;
+      margin-top: 0;
+      color: color(neutral-very-dark);
+    }
+
+    .description {
+      color: color(neutral-dark);
+      font-weight: 500;
+    }
+
+    .price-box {
+      .price-info {
+        display: flex;
+        align-items: center;
+
+        .old-price {
+          text-decoration: line-through;
+          color: color(neutral-dark);
+          padding-left: 1em;
+          
+          @include desktop{
+            margin: 0.4em 0 1em 0;
+          }
+        }
+
+        .main-price {
+          @include desktop{
+            margin: 0.5em 0 1em 0;
+          }
+          
+            font-size: 2em;
+          font-family: Fraunces;
+          color: color(primary-dark);
+        }
+      }
+
+      .buy-btn {
+        background-color: color(primary-dark);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        
+
+        .buy-btn-box{
+            display: flex;
+            justify-content: center;
+            
+            
+            a {
+                color: color(neutral-white);
+                font-weight: 700;
+                text-decoration: none;
+                font-size: 0.9em;
+                margin-left:0.5em ;
+              }
+        }
+      }
+
+      .buy-btn:hover {
+        background-color: color(primary-darker);
+      }
+    }
+  }
+}
